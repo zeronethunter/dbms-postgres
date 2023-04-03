@@ -1,0 +1,96 @@
+services:
+  backend-1:
+    hostname: b1
+    depends_on:
+      - db
+      - prometheus
+      - grafana
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    environment:
+      PORT: 8081
+      METRICS_PORT: 9091
+      DB_PORT: 5432
+  backend-2:
+    hostname: b2
+    depends_on:
+      - db
+      - prometheus
+      - grafana
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    environment:
+      PORT: 8082
+      METRICS_PORT: 9092
+      DB_PORT: 5432
+  backend-3:
+    hostname:
+      b3
+    depends_on:
+      - db
+      - prometheus
+      - grafana
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    environment:
+      PORT: 8083
+      METRICS_PORT: 9093
+      DB_PORT: 5432
+  load-balancer:
+    hostname: load-balancer
+    depends_on:
+      - backend-1
+      - backend-2
+      - backend-3
+    image: nginx:latest
+    volumes:
+      - ./configs/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8080:8080"
+  db:
+    hostname: postgresql
+    container_name: postgresql
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: zenehu
+      POSTGRES_PASSWORD: zenehu
+      POSTGRES_DB: forum-task
+    volumes:
+      - ./db/db.sql:/docker-entrypoint-initdb.d/init.sql
+      - /var/lib/postgresql/data:/var/lib/postgresql/data
+
+  prometheus:
+    hostname: prometheus
+    image: prom/prometheus:latest
+    container_name: vdonate-prometheus
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    volumes:
+      - prometheus_data:/prometheus
+      - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: vdonate-grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=zenehu
+      - GF_SECURITY_ADMIN_PASSWORD=secretkey
+      - GF_USERS_ALLOW_SIGN_UP=true
+    ports:
+      - "3000:3000"
+
+volumes:
+  prometheus_data: { }
+  grafana_data: { }

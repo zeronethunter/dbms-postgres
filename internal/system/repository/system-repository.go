@@ -15,6 +15,11 @@ func NewPostgres(url string) (*Postgres, error) {
 		return nil, err
 	}
 
+	newSQLX.SetMaxOpenConns(-1)
+	newSQLX.SetMaxIdleConns(-1)
+	newSQLX.SetConnMaxIdleTime(-1)
+	newSQLX.SetConnMaxLifetime(-1)
+
 	if err = newSQLX.Ping(); err != nil {
 		return nil, err
 	}
