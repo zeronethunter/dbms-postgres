@@ -3,7 +3,7 @@ services:
   backend:
     build:
       context: ../..
-      dockerfile: backend.Dockerfile
+      dockerfile: deployments/backend/backend.Dockerfile
     environment:
       PORT: 8080
       METRICS_PORT: 9090
