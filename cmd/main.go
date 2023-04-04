@@ -26,6 +26,8 @@ func main() {
 
 	pgURL := "host=" + os.Getenv("DB_HOST") + " port=" + os.Getenv("DB_PORT") + " user=" + os.Getenv("DB_USER") + " password=" + os.Getenv("DB_PASSWORD") + " dbname=forum-task sslmode=disable"
 
+	l.Infof("%s: %s", "POSTGRES_URL", pgURL)
+
 	go func() { prometheusEcho.Logger.Fatal(prometheusEcho.Start(":" + os.Getenv("METRICS_PORT"))) }()
 
 	if err := s.Start(":"+os.Getenv("PORT"), pgURL); err != nil {

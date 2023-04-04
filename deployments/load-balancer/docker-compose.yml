@@ -21,7 +21,8 @@ services:
       POSTGRES_USER: zenehu
       POSTGRES_PASSWORD: zenehu
       POSTGRES_DB: forum-task
-    network_mode: host
+    ports:
+      - "5432:5432"
     volumes:
       - ../../db/db.sql:/docker-entrypoint-initdb.d/init.sql
       - /var/lib/postgresql/data:/var/lib/postgresql/data
