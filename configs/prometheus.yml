@@ -5,14 +5,29 @@ scrape_configs:
   - job_name: 'backend-1'
     scrape_interval: 5s
     static_configs:
-      - targets: [ 'b1:9091' ]
+      - targets: [ 'debian11.4-basic-1-1-15gb-2.mcs.local:9090' ]
+
+  - job_name: 'hardware-1'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'debian11.4-basic-1-1-15gb-2.mcs.local:9090' ]
 
   - job_name: 'backend-2'
     scrape_interval: 5s
     static_configs:
-      - targets: [ 'b2:9092' ]
+      - targets: [ 'debian11.4-basic-1-1-15gb-3.mcs.local:9090' ]
+
+  - job_name: 'hardware-2'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'debian11.4-basic-1-1-15gb-3.mcs.local:9090' ]
 
   - job_name: 'backend-3'
     scrape_interval: 5s
     static_configs:
-      - targets: [ 'b3:9093' ]
+      - targets: [ 'debian11.4-basic-1-1-15gb-4.mcs.local:9090' ]
+
+  - job_name: 'hardware-3'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'debian11.4-basic-1-1-15gb-4.mcs.local:9090' ]

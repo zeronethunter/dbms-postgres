@@ -24,7 +24,7 @@ func main() {
 
 	s := service.NewServer(e)
 
-	pgURL := "host=postgresql port=" + os.Getenv("DB_PORT") + " user=zenehu password=zenehu dbname=forum-task sslmode=disable"
+	pgURL := "host=" + os.Getenv("DB_HOST") + " port=" + os.Getenv("DB_PORT") + " user=" + os.Getenv("DB_USER") + " password=" + os.Getenv("DB_PASSWORD") + " dbname=forum-task sslmode=disable"
 
 	go func() { prometheusEcho.Logger.Fatal(prometheusEcho.Start(":" + os.Getenv("METRICS_PORT"))) }()
 
