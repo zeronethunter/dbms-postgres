@@ -1,2 +1,2 @@
 # DBMS study project
-It showes postgres queries optimisation
+It shows postgres queries optimisation
