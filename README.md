@@ -1,2 +1,2 @@
-# technopark-dbms-forum
-VK Education DBMS project
+# DBMS study project
+It showes postgres queries optimisation
