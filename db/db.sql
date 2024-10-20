@@ -166,32 +166,32 @@ CREATE TRIGGER update_trigger_user_forum_posts
     FOR EACH ROW
 EXECUTE PROCEDURE update_trigger_user_forum_posts();
 
--- INDEXES
-
--- Forum
--- indexed based on selectivity
-CREATE INDEX IF NOT EXISTS index_forum_nickname ON forums (author_nickname);
-
--- Users
--- indexed based on selectivity
-CREATE INDEX IF NOT EXISTS index_users_email ON users (email);
-
--- Threads
--- index based on forum/{slug}/threads
-CREATE INDEX IF NOT EXISTS index_thread_forum_nickname ON threads (forum, author_nickname);
--- indexed based on selectivity
-CREATE INDEX IF NOT EXISTS index_threads_slug on threads (slug);
--- index based on forum/{slug}/threads with since option
-CREATE INDEX IF NOT EXISTS index_threads_forum_created ON threads (forum, created);
-
--- Posts
--- index based on thread/{slug_or_id}/posts
-CREATE INDEX IF NOT EXISTS index_posts_thread_id on posts (thread_id);
--- index based on flat sorting with since option
-CREATE INDEX IF NOT EXISTS index_posts_flat on posts (thread_id, created, id);
--- index based on tree sorting
-CREATE INDEX IF NOT EXISTS index_posts_tree on posts (thread_id, path);
--- index based on parent_tree sorting
-CREATE INDEX IF NOT EXISTS index_posts_parent_tree on posts ((path[1]), path);
-
-VACUUM ANALYZE;
+-- -- INDEXES
+--
+-- -- Forum
+-- -- indexed based on selectivity
+-- CREATE INDEX IF NOT EXISTS index_forum_nickname ON forums (author_nickname);
+--
+-- -- Users
+-- -- indexed based on selectivity
+-- CREATE INDEX IF NOT EXISTS index_users_email ON users (email);
+--
+-- -- Threads
+-- -- index based on forum/{slug}/threads
+-- CREATE INDEX IF NOT EXISTS index_thread_forum_nickname ON threads (forum, author_nickname);
+-- -- indexed based on selectivity
+-- CREATE INDEX IF NOT EXISTS index_threads_slug on threads (slug);
+-- -- index based on forum/{slug}/threads with since option
+-- CREATE INDEX IF NOT EXISTS index_threads_forum_created ON threads (forum, created);
+--
+-- -- Posts
+-- -- index based on thread/{slug_or_id}/posts
+-- CREATE INDEX IF NOT EXISTS index_posts_thread_id on posts (thread_id);
+-- -- index based on flat sorting with since option
+-- CREATE INDEX IF NOT EXISTS index_posts_flat on posts (thread_id, created, id);
+-- -- index based on tree sorting
+-- CREATE INDEX IF NOT EXISTS index_posts_tree on posts (thread_id, path);
+-- -- index based on parent_tree sorting
+-- CREATE INDEX IF NOT EXISTS index_posts_parent_tree on posts ((path[1]), path);
+--
+-- VACUUM ANALYZE;

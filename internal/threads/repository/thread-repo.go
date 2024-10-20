@@ -3,7 +3,6 @@ package threadRepository
 import (
 	"database/sql"
 	"fmt"
-
 	"github.com/lib/pq"
 
 	internalErrors "technopark-dbms-forum/internal"
@@ -21,8 +20,6 @@ func NewPostgres(url string) (*Postgres, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	newSQLX.SetMaxOpenConns(100)
 
 	if err = newSQLX.Ping(); err != nil {
 		return nil, err

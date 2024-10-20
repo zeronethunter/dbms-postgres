@@ -22,8 +22,6 @@ func NewPostgres(url string) (*Postgres, error) {
 		return nil, err
 	}
 
-	newSQLX.SetMaxOpenConns(100)
-
 	if err = newSQLX.Ping(); err != nil {
 		return nil, err
 	}
